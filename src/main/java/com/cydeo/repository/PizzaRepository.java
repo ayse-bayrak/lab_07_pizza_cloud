@@ -1,11 +1,13 @@
 package com.cydeo.repository;
 
 import com.cydeo.model.Pizza;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Component
 public class PizzaRepository {
 
     private static List<Pizza> pizzaList = new ArrayList<>();
@@ -19,9 +21,9 @@ public class PizzaRepository {
         return pizzaList;
     }
 
-    // TODO complete method
+    // TODO complete method --> done
     public Pizza findPizzaById(UUID uuid) {
-        return new Pizza();
+        return pizzaList.stream().filter(p->p.getId().equals(uuid)).findFirst().orElseThrow();
     }
 
 }
