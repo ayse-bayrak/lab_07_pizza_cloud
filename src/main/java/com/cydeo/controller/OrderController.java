@@ -50,3 +50,5 @@ public class OrderController {
     }
 
 }
+//pizzaOrder.setName("");
+//pizzaOrder.setPizza(null); if there is no field in the form, this was like this
