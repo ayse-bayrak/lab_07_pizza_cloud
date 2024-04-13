@@ -1,5 +1,6 @@
 package com.cydeo.controller;
 
+import com.cydeo.exception.PizzaNotFoundException;
 import com.cydeo.model.Pizza;
 import com.cydeo.model.PizzaOrder;
 import com.cydeo.repository.PizzaRepository;
@@ -20,32 +21,32 @@ public class OrderController {
     }
 
     @GetMapping("/current")
-    public String orderForm(UUID pizzaId, Model model) {
+    public String orderForm(@RequestParam UUID pizzaId, Model model) {
 
         PizzaOrder pizzaOrder = new PizzaOrder();
+        // TODO fix the getPizza() method below in line 46. ->done
+     pizzaOrder.setPizza(getPizza(pizzaId));
 
-        // TODO fix the getPizza() method below in line 46.
-        pizzaOrder.setPizza(getPizza(pizzaId));
-
-        model.addAttribute("pizzaOrder", pizzaOrder);
+      model.addAttribute("pizzaOrder", pizzaOrder);
 
         return "/orderForm";
     }
 
     @PostMapping("/{pizzaId}")
-    public String processOrder(UUID pizzaId, @ModelAttribute PizzaOrder pizzaOrder) {
+    public String processOrder(@PathVariable UUID pizzaId, @ModelAttribute PizzaOrder pizzaOrder) {
 
         // Saving the order
+
         pizzaOrder.setPizza(getPizza(pizzaId));
         System.out.println("Order is successfully saved");
 
         return "redirect:/home";
     }
 
-    //TODO complete method
-    private Pizza getPizza(UUID pizzaId) {
-        // Get the pizza from repository based on it's id
-        return new Pizza();
+    //TODO complete method -> done
+    private Pizza getPizza(UUID pizzaId) throws PizzaNotFoundException {
+        // Get the pizza from repository based on it's id -> done
+        return pizzaRepository.readAll().stream().filter(p->p.getId().equals(pizzaId)).findFirst().orElseThrow(()->new PizzaNotFoundException("Pizza Not Found"));
     }
 
 }

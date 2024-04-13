@@ -13,6 +13,7 @@ public class PizzaRepository {
     private static List<Pizza> pizzaList = new ArrayList<>();
 
     public Pizza createPizza(Pizza pizzaToSave) {
+        pizzaToSave.setId(UUID.randomUUID());
         pizzaList.add(pizzaToSave);
         return pizzaToSave;
     }
