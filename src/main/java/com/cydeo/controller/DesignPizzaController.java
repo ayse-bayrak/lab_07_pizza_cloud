@@ -17,7 +17,8 @@ import java.util.UUID;
 public class DesignPizzaController {
 
     private final PizzaRepository pizzaRepository;
-    // to do dependency injection we need constructor in here, because error says pizzaRepository is null and
+    // to do dependency injection we need constructor in here,
+    // because error says pizzaRepository is null and
     //we look at here
 
     public DesignPizzaController(PizzaRepository pizzaRepository) {
@@ -37,7 +38,7 @@ public class DesignPizzaController {
     @PostMapping("/createPizza")  //localhost:8080/design/createPizza
     public String processPizza(  Pizza pizza) {
         pizza.setId(UUID.randomUUID());
-        pizzaRepository.createPizza(pizza);
+        pizzaRepository.createPizza(pizza); // to add pizzaList
         //null.createPizza() it is not possible..
 
         return "redirect:/orders/current?pizzaId=" + pizza.getId();
